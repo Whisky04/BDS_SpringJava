@@ -2,14 +2,12 @@ package lt.vilniustech.dpanasenko.first_spring.service;
 import lt.vilniustech.dpanasenko.first_spring.model.Customer;
 
 import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * The type Xml transformation service.
@@ -45,7 +43,7 @@ public class XMLTransformationService {
             jaxbMarshaller.marshal(customer, outputStream);
 
             return fileStorageService.saveFile("customer_" + customer.getId() + ".xml", outputStream.toByteArray());
-        } catch (JAXBException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
