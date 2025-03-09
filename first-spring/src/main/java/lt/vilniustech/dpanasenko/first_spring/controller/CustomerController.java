@@ -2,29 +2,38 @@ package lt.vilniustech.dpanasenko.first_spring.controller;
 
 import lt.vilniustech.dpanasenko.first_spring.db.CustomerRepository;
 import lt.vilniustech.dpanasenko.first_spring.model.Customer;
+import lt.vilniustech.dpanasenko.first_spring.service.CustomerService;
 import lt.vilniustech.dpanasenko.first_spring.service.XMLTransformationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("customers")
 public class CustomerController {
 
+    private final CustomerService customerService;
+    private final XMLTransformationService xmlTransformationService;
+
     @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private XMLTransformationService transformationService;
+    public CustomerController(CustomerService customerService, XMLTransformationService xmlTransformationService) {
+        this.customerService = customerService;
+        this.xmlTransformationService = xmlTransformationService;
+    }
 
     @GetMapping(produces = "application/json")
-    List<Customer> getAllCustomers() {
-        List<Customer> customers = customerRepository.findAll();
-        for(Customer customer : customers) {
-            transformationService.transformToXML(customer);
-        }
-        return customers;
+    public List<String> getFilteredCustomers(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String email) {
+
+        List<Customer> customers = customerService.getCustomersByFilter(firstName, lastName, email);
+
+        return customers.stream()
+                .map(xmlTransformationService::transformToXML)
+                .collect(Collectors.toList());
     }
 }
