@@ -1,13 +1,14 @@
 package lt.vilniustech.dpanasenko.first_spring.service;
-
 import lt.vilniustech.dpanasenko.first_spring.model.Customer;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -16,7 +17,17 @@ import java.io.IOException;
 @Service
 public class XMLTransformationService {
 
-    private static final String XML_DIRECTORY = "xml_output/";
+    private final FileStorageService fileStorageService;
+
+    /**
+     * Instantiates a new Xml transformation service.
+     *
+     * @param fileStorageService the file storage service
+     */
+    @Autowired
+    public XMLTransformationService(FileStorageService fileStorageService) {
+        this.fileStorageService = fileStorageService;
+    }
 
     /**
      * Transform to xml string.
@@ -26,19 +37,14 @@ public class XMLTransformationService {
      */
     public String transformToXML(Customer customer) {
         try {
-            File directory = new File(XML_DIRECTORY);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            String fileName = XML_DIRECTORY + "customer_" + customer.getId() + ".xml";
-            File file = new File(fileName);
-
             JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            jaxbMarshaller.marshal(customer, new FileOutputStream(file));
 
-            return file.getAbsolutePath();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            jaxbMarshaller.marshal(customer, outputStream);
+
+            return fileStorageService.saveFile("customer_" + customer.getId() + ".xml", outputStream.toByteArray());
         } catch (JAXBException | IOException e) {
             e.printStackTrace();
             return null;

@@ -1,6 +1,5 @@
 package lt.vilniustech.dpanasenko.first_spring.controller;
 
-import lt.vilniustech.dpanasenko.first_spring.db.CustomerRepository;
 import lt.vilniustech.dpanasenko.first_spring.model.Customer;
 import lt.vilniustech.dpanasenko.first_spring.service.CustomerService;
 import lt.vilniustech.dpanasenko.first_spring.service.XMLTransformationService;

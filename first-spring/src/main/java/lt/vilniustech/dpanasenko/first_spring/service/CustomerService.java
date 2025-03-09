@@ -2,6 +2,7 @@ package lt.vilniustech.dpanasenko.first_spring.service;
 
 import lt.vilniustech.dpanasenko.first_spring.db.CustomerRepository;
 import lt.vilniustech.dpanasenko.first_spring.model.Customer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
