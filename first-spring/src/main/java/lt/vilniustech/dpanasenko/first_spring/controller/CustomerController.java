@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Customer controller.
+ */
 @RestController
 @RequestMapping("customers")
 public class CustomerController {
@@ -18,12 +21,26 @@ public class CustomerController {
     private final CustomerService customerService;
     private final XMLTransformationService xmlTransformationService;
 
+    /**
+     * Instantiates a new Customer controller.
+     *
+     * @param customerService          the customer service
+     * @param xmlTransformationService the xml transformation service
+     */
     @Autowired
     public CustomerController(CustomerService customerService, XMLTransformationService xmlTransformationService) {
         this.customerService = customerService;
         this.xmlTransformationService = xmlTransformationService;
     }
 
+    /**
+     * Gets filtered customers.
+     *
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @param email     the email
+     * @return the filtered customers
+     */
     @GetMapping(produces = "application/json")
     public List<String> getFilteredCustomers(
             @RequestParam(required = false) String firstName,

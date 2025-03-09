@@ -10,11 +10,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * The type Xml transformation service.
+ */
 @Service
 public class XMLTransformationService {
 
     private static final String XML_DIRECTORY = "xml_output/";
 
+    /**
+     * Transform to xml string.
+     *
+     * @param customer the customer
+     * @return the string
+     */
     public String transformToXML(Customer customer) {
         try {
             File directory = new File(XML_DIRECTORY);
