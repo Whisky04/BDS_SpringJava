@@ -13,6 +13,9 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * The type Xml transformation service test.
+ */
 class XMLTransformationServiceTest {
 
     @Mock
@@ -21,11 +24,19 @@ class XMLTransformationServiceTest {
     @InjectMocks
     private XMLTransformationService xmlTransformationService;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Transform to xml should return file path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void transformToXML_shouldReturnFilePath() throws Exception {
         Customer customer = new Customer();
@@ -44,6 +55,11 @@ class XMLTransformationServiceTest {
         verify(fileStorageService, times(1)).saveFile(anyString(), any());
     }
 
+    /**
+     * Transform to xml should handle exception.
+     *
+     * @throws IOException the io exception
+     */
     @Test
     void transformToXML_shouldHandleException() throws IOException {
         Customer customer = new Customer();
@@ -56,6 +72,11 @@ class XMLTransformationServiceTest {
         assertNull(result);
     }
 
+    /**
+     * Transform to xml should log exception.
+     *
+     * @throws IOException the io exception
+     */
     @Test
     void transformToXML_shouldLogException() throws IOException {
         Customer customer = new Customer();

@@ -7,12 +7,18 @@ import lt.vilniustech.dpanasenko.first_spring.db.CustomerRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Customer entity test.
+ */
 @DataJpaTest
 class CustomerEntityTest {
 
     @Autowired
     private CustomerRepository customerRepository;
 
+    /**
+     * Test customer persistence.
+     */
     @Test
     void testCustomerPersistence() {
         Customer customer = new Customer();

@@ -12,6 +12,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Customer repository test.
+ */
 @DataJpaTest
 @Transactional
 class CustomerRepositoryTest {
@@ -21,6 +24,9 @@ class CustomerRepositoryTest {
 
     private Customer customer1, customer2, customer3;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         customerRepository.deleteAll();
@@ -46,11 +52,17 @@ class CustomerRepositoryTest {
         customer3 = customerRepository.save(customer3);
     }
 
+    /**
+     * Tear down.
+     */
     @AfterEach
     void tearDown() {
         customerRepository.deleteAll();
     }
 
+    /**
+     * Find by first name should return correct customers.
+     */
     @Test
     void findByFirstName_ShouldReturnCorrectCustomers() {
         List<Customer> result = customerRepository.findByFirstName("John");
@@ -59,6 +71,9 @@ class CustomerRepositoryTest {
         assertTrue(result.contains(customer3));
     }
 
+    /**
+     * Find by last name should return correct customers.
+     */
     @Test
     void findByLastName_ShouldReturnCorrectCustomers() {
         List<Customer> result = customerRepository.findByLastName("Doe");
@@ -67,6 +82,9 @@ class CustomerRepositoryTest {
         assertTrue(result.contains(customer2));
     }
 
+    /**
+     * Find by email should return correct customer.
+     */
     @Test
     void findByEmail_ShouldReturnCorrectCustomer() {
         List<Customer> result = customerRepository.findByEmail("jane.doe@example.com");
@@ -74,6 +92,9 @@ class CustomerRepositoryTest {
         assertEquals(customer2.getEmail(), result.get(0).getEmail());
     }
 
+    /**
+     * Find by first name should return empty list when no match.
+     */
     @Test
     void findByFirstName_ShouldReturnEmptyList_WhenNoMatch() {
         List<Customer> result = customerRepository.findByFirstName("Nonexistent");

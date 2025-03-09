@@ -14,6 +14,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Customer controller test.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CustomerControllerTest {
@@ -21,6 +24,9 @@ class CustomerControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    /**
+     * Gets all customers.
+     */
     @Test
     public void getAllCustomers() {
         ResponseEntity<List> response

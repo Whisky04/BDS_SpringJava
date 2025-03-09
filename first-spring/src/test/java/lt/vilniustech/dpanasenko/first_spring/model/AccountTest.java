@@ -9,12 +9,18 @@ import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Account entity test.
+ */
 @DataJpaTest
 class AccountEntityTest {
 
     @Autowired
     private AccountRepository accountRepository;
 
+    /**
+     * Test account persistence.
+     */
     @Test
     void testAccountPersistence() {
         Account account = new Account();

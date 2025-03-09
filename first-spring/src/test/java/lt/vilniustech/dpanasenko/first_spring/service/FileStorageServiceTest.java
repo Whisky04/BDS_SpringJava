@@ -8,15 +8,26 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type File storage service test.
+ */
 class FileStorageServiceTest {
 
     private FileStorageService fileStorageService;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         fileStorageService = new FileStorageService();
     }
 
+    /**
+     * Save file should create file.
+     *
+     * @throws IOException the io exception
+     */
     @Test
     void saveFile_shouldCreateFile() throws IOException {
         String fileName = "test_file.xml";
@@ -31,6 +42,9 @@ class FileStorageServiceTest {
         file.delete();
     }
 
+    /**
+     * Save file should throw exception on invalid path.
+     */
     @Test
     void saveFile_shouldThrowExceptionOnInvalidPath() {
         FileStorageService faultyService = new FileStorageService() {

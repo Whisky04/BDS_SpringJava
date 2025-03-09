@@ -11,6 +11,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Customer service test.
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
 class CustomerServiceTest {
@@ -18,6 +21,9 @@ class CustomerServiceTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    /**
+     * Gets all customers.
+     */
     @Test
     void getAllCustomers() {
         ResponseEntity<List> response = restTemplate.getForEntity("/customers", List.class);
@@ -27,6 +33,9 @@ class CustomerServiceTest {
         assertFalse(response.getBody().isEmpty());
     }
 
+    /**
+     * Gets customers by first name.
+     */
     @Test
     void getCustomersByFirstName() {
         ResponseEntity<List> response = restTemplate.getForEntity("/customers?firstName=New customer 1", List.class);
@@ -36,6 +45,9 @@ class CustomerServiceTest {
         assertFalse(response.getBody().isEmpty());
     }
 
+    /**
+     * Gets customers by last name.
+     */
     @Test
     void getCustomersByLastName() {
         ResponseEntity<List> response = restTemplate.getForEntity("/customers?lastName=Customer 2", List.class);
@@ -45,6 +57,9 @@ class CustomerServiceTest {
         assertFalse(response.getBody().isEmpty());
     }
 
+    /**
+     * Gets customers by email.
+     */
     @Test
     void getCustomersByEmail() {
         ResponseEntity<List> response = restTemplate.getForEntity("/customers?email=a@gmail.com", List.class);
@@ -54,6 +69,9 @@ class CustomerServiceTest {
         assertFalse(response.getBody().isEmpty());
     }
 
+    /**
+     * Gets customers with invalid filter returns empty.
+     */
     @Test
     void getCustomersWithInvalidFilterReturnsEmpty() {
         ResponseEntity<List> response = restTemplate.getForEntity("/customers?firstName=NonExistent", List.class);
